@@ -1,5 +1,6 @@
 <?php
 
+use command\AiCommand;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase {
@@ -18,5 +19,7 @@ class Main extends PluginBase {
 	public function onEnable() {
 		self::$instance = $this;
 		$this->getLogger()->info('BOT-AI plugin enabled');
+
+		$this->getServer()->getCommandMap()->register('ai', new AiCommand($this));
 	}
 }
