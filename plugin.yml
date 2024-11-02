@@ -1,0 +1,9 @@
+name: BOT-AI
+version: 1.0.0
+main: Main
+api: 3.0.0
+description: AInnova API
+permissions:
+    ai.request:
+        description: Allows you to send requests to AI
+        default: true
