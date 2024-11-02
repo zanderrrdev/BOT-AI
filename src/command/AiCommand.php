@@ -45,6 +45,22 @@ class AiCommand extends Command {
 			return false;
 		}
 
+		$message = implode(' ', $args);
+		$sender->sendMessage('§eYou: ' . $message);
+		$sender->sendMessage('§eGenerating response...');
+
+		$this->plugin->ainnova->sendMessage($message, function (Server $server, $response) use ($sender) {
+			if (isset($response['response'])) {
+				$sender->sendMessage('§aAI Response: §e' . $response['response']);
+				$server->getLogger()->info('AI Response: ' . $response['response']);
+				$server->getLogger()->info('Request Time: ' . date('H:i:s', $response['time']));
+			} else {
+				$errorMessage = $response['error'] ?? 'Unknown error';
+				$sender->sendMessage('§cError: §7' . $errorMessage);
+				$server->getLogger()->error('Error: ' . $errorMessage);
+			}
+		});
+
 		return true;
 	}
 }
