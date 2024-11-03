@@ -26,9 +26,10 @@ class Main extends PluginBase {
 		$settings = json_decode(file_get_contents($this->getDataFolder() . 'settings.json'), true);
 
 		if ($this->ainnova = $this->getServer()->getPluginManager()->getPlugin('AInnova')) {
-			if (isset($settings['token'], $settings['model'])) {
-				$this->ainnova->setToken($settings['token']);
-				$this->ainnova->setModel($settings['model']);
+			if ($this->config->exists('token') && $this->config->exists('model')) {
+				$this->ainnova->setApiUrl($this->config->get('url'));
+				$this->ainnova->setToken($this->config->get('token'));
+				$this->ainnova->setModel($this->config->get('model'));
 			} else {
 				$this->getLogger()->warning('Invalid settings in settings.json');
 			}
